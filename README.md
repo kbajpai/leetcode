@@ -1,7 +1,9 @@
 # Leetcode
 Leetcode Problems
 
-[TOC]
+## Table of Contents
+- [AddTwoNumbers](#AddTwoNumbers)
+- [3Sum](#3Sum)
 
 ## AddTwoNumbers
 ```csharp
