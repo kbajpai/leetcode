@@ -7,7 +7,6 @@ public class ThreeSumTests {
     [Fact]
     public void FindThreeSum_Duplicates_ReturnsUniqueTriplets() {
         // Arrange
-        var threeSum = new ThreeSum();
         int[] nums = [-2, 0, 0, 2, 2];
 
         // Act
@@ -23,7 +22,6 @@ public class ThreeSumTests {
     [Fact]
     public void FindThreeSum_EmptyArray_ReturnsEmptyList() {
         // Arrange
-        var threeSum = new ThreeSum();
         int[] nums = [];
 
         // Act
@@ -36,7 +34,6 @@ public class ThreeSumTests {
     [Fact]
     public void FindThreeSum_LessThanThreeElements_ReturnsEmptyList() {
         // Arrange
-        var threeSum = new ThreeSum();
         int[] nums = [1, -1];
 
         // Act
@@ -49,7 +46,6 @@ public class ThreeSumTests {
     [Fact]
     public void FindThreeSum_MultipleTriplets_ReturnsCorrectResult() {
         // Arrange
-        var threeSum = new ThreeSum();
         int[] nums = [-1, 0, 1, 2, -1, -4];
 
         // Act
@@ -66,7 +62,6 @@ public class ThreeSumTests {
     [Fact]
     public void FindThreeSum_NoTriplets_ReturnsEmptyList() {
         // Arrange
-        var threeSum = new ThreeSum();
         int[] nums = [1, 2, 3, 4];
 
         // Act
