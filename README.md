@@ -173,3 +173,32 @@ public class PrefixSum
         return maxSubarrayLength;
     }
 ```
+
+<a id='0560-subarray-sum-equals-k'>0560 Subarray Sum Equals K</a>
+```csharp
+    /// <summary>
+    ///     Returns the total number of continuous subarrays whose sum equals to k.
+    ///     Uses a prefix sum and hash map to achieve O(n) time complexity.
+    /// </summary>
+    /// <param name="nums">The input integer array.</param>
+    /// <param name="k">The target sum.</param>
+    /// <returns>The count of subarrays whose sum is k.</returns>
+    public int SubarraySum(int[] nums, int k) {
+        var count = 0;
+        var prefixSum = 0;
+        var sumOccurrences = new Dictionary<int, int> { [0] = 1 };
+
+        foreach (var n in nums) {
+            prefixSum += n;
+            if (sumOccurrences.TryGetValue(prefixSum - k, out var freq)) {
+                count += freq;
+            }
+
+            if (!sumOccurrences.TryAdd(prefixSum, 1)) {
+                sumOccurrences[prefixSum]++;
+            }
+        }
+
+        return count;
+    }
+```
