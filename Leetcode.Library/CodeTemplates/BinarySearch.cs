@@ -2,22 +2,20 @@
 
 public abstract class BinarySearch {
     public static int RunBinarySearch(int[] nums, int target) {
-        var n = nums.Length;
-        int l = 0, r = n - 1;
+        int l = 0, r = nums.Length - 1;
 
         while (l <= r) {
-            var mid = l + (r - l) / 2;
+            // Avoids overflow, slightly faster than division
+            var mid = (int)((uint)(l + r) >> 1);
             var midVal = nums[mid];
 
             if (target == midVal)
                 return mid;
 
-            if (target < midVal) {
+            if (target < midVal)
                 r = mid - 1;
-            }
-            else {
+            else
                 l = mid + 1;
-            }
         }
 
         return -1;

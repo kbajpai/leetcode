@@ -4,6 +4,18 @@
 ///     Provides utility methods for working with overlapping intervals.
 /// </summary>
 public abstract class OverlappingIntervals {
+    /// <summary>
+    ///     Inserts a new interval into a list of non-overlapping intervals and merges if necessary.
+    /// </summary>
+    /// <param name="intervals">A 2D array of non-overlapping intervals sorted by start time.</param>
+    /// <param name="newInterval">The interval to insert and merge if overlapping.</param>
+    /// <returns>
+    ///     A new 2D array of intervals after inserting and merging the new interval.
+    /// </returns>
+    /// <remarks>
+    ///     Time Complexity: O(N), where N is the number of intervals.
+    ///     Space Complexity: O(N), for storing the result.
+    /// </remarks>
     public static int[][] InsertInterval(int[][] intervals, int[] newInterval) {
         var n = intervals.Length;
         var result = new List<int[]>(n + 1);
@@ -44,16 +56,18 @@ public abstract class OverlappingIntervals {
         var n = intervals.Length;
         if (n <= 1) return;
 
-        //Time: O(nLog(n))
         Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
 
-        List<int[]> merged = [];
-        foreach (var curr in intervals) {
-            if (merged.Count == 0 || curr[0] > merged[^1][1]) {
-                merged.Add(curr);
+        var idx = 0; // Points to the last merged interval
+        for (var i = 1; i < n; i++) {
+            if (intervals[idx][1] < intervals[i][0]) {
+                idx++;
+                intervals[idx][0] = intervals[i][0];
+                intervals[idx][1] = intervals[i][1];
             }
             else {
-                merged[^1][1] = Math.Max(merged[^1][1], curr[1]);
+                // Merge intervals
+                intervals[idx][1] = Math.Max(intervals[idx][1], intervals[i][1]);
             }
         }
     }
