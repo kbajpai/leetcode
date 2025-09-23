@@ -24,7 +24,9 @@ public abstract class BreadthFirstSearch {
     ///     </para>
     /// </remarks>
     public static IList<int> Traverse(TreeNode? root) {
-        if (root == null) return Array.Empty<int>();
+        if (root == null) {
+            return Array.Empty<int>();
+        }
 
         var result = new List<int>(32);
         var queue = new Queue<TreeNode>(32);
@@ -37,10 +39,13 @@ public abstract class BreadthFirstSearch {
             var left = node.left;
             var right = node.right;
 
-            if (left != null)
+            if (left != null) {
                 queue.Enqueue(left);
-            if (right != null)
+            }
+
+            if (right != null) {
                 queue.Enqueue(right);
+            }
         }
 
         return result;

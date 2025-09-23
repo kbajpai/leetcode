@@ -12,10 +12,18 @@ public class CountDistinct {
             var sb = new StringBuilder();
 
             for (var end = start; end < n; end++) {
-                if (nums[end] % p == 0) divCount++;
-                if (divCount > k) break;
+                if (nums[end] % p == 0) {
+                    divCount++;
+                }
 
-                if (end > start) sb.Append(',');
+                if (divCount > k) {
+                    break;
+                }
+
+                if (end > start) {
+                    sb.Append(',');
+                }
+
                 sb.Append(nums[end]);
                 seen.Add(sb.ToString());
             }

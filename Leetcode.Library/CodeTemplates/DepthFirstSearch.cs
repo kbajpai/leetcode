@@ -24,7 +24,9 @@ public abstract class DepthFirstSearch {
     ///     </para>
     /// </remarks>
     public static IList<int> Traverse(TreeNode? root) {
-        if (root == null) return Array.Empty<int>();
+        if (root == null) {
+            return Array.Empty<int>();
+        }
 
         // Estimate capacity: avoid resizing for small trees
         var result = new List<int>(32);
@@ -39,11 +41,13 @@ public abstract class DepthFirstSearch {
             var right = node.right;
             var left = node.left;
 
-            if (right != null)
+            if (right != null) {
                 stack.Push(right);
+            }
 
-            if (left != null)
+            if (left != null) {
                 stack.Push(left);
+            }
         }
 
         return result;

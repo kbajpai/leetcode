@@ -3,7 +3,9 @@
 public class MinDifference {
     public int RunMinDifference(int[] nums) {
         var n = nums.Length;
-        if (n <= 4) return 0;
+        if (n <= 4) {
+            return 0;
+        }
 
         // Use Array.Sort for in-place sorting (already optimal for performance)
         Array.Sort(nums);
@@ -16,9 +18,17 @@ public class MinDifference {
 
         // Return the minimum of the four differences
         var minDiff = diff1;
-        if (diff2 < minDiff) minDiff = diff2;
-        if (diff3 < minDiff) minDiff = diff3;
-        if (diff4 < minDiff) minDiff = diff4;
+        if (diff2 < minDiff) {
+            minDiff = diff2;
+        }
+
+        if (diff3 < minDiff) {
+            minDiff = diff3;
+        }
+
+        if (diff4 < minDiff) {
+            minDiff = diff4;
+        }
 
         return minDiff;
     }

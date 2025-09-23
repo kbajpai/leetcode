@@ -54,7 +54,9 @@ public abstract class OverlappingIntervals {
     /// </remarks>
     public static void MergeOverlappingIntervals(int[][] intervals) {
         var n = intervals.Length;
-        if (n <= 1) return;
+        if (n <= 1) {
+            return;
+        }
 
         Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
 

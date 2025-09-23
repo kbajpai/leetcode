@@ -14,7 +14,9 @@ public class LengthOfLongestSubstringTwoDistinct {
         var len = s.Length;
 
         // If the string has 2 or fewer characters, return its length.
-        if (len <= 2) return len;
+        if (len <= 2) {
+            return len;
+        }
 
         // Initialize the maximum length found to 2 (minimum valid substring).
         var max = 2;
@@ -28,8 +30,9 @@ public class LengthOfLongestSubstringTwoDistinct {
         // Iterate through the string using the right pointer.
         while (r < len) {
             // If the character at r is not in the dictionary, add it with count 0.
-            if (!dc.ContainsKey(s[r]))
+            if (!dc.ContainsKey(s[r])) {
                 dc[s[r]] = 0;
+            }
 
             // Increment the count for the character at r.
             dc[s[r]]++;
@@ -40,8 +43,9 @@ public class LengthOfLongestSubstringTwoDistinct {
                 dc[s[l]]--;
 
                 // If the count becomes zero, remove the character from the dictionary.
-                if (dc[s[l]] == 0)
+                if (dc[s[l]] == 0) {
                     dc.Remove(s[l]);
+                }
 
                 // Move the left pointer to the right.
                 l++;

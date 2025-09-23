@@ -33,7 +33,9 @@ public class LargestWordCount {
     }
 
     private static int CountWords(string message) {
-        if (message.Length == 0) return 0;
+        if (message.Length == 0) {
+            return 0;
+        }
 
         var wordCount = 1;
         for (var i = 0; i < message.Length; i++) {

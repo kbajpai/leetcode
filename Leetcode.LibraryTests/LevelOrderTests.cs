@@ -118,18 +118,25 @@ public class LevelOrderTests {
     //    Create a new TreeNode with the same val and the computed children and assign back to nodes[i].
     // 5. Return nodes[0] as the root.
     private static TreeNode? BuildTree(int?[] values) {
-        if (values.Length == 0 || values[0] == null) return null;
+        if (values.Length == 0 || values[0] == null) {
+            return null;
+        }
+
         var n = values.Length;
         var nodes = new TreeNode?[n];
         // Create nodes with values only
         for (var i = 0; i < n; i++) {
-            if (values[i].HasValue)
+            if (values[i].HasValue) {
                 nodes[i] = new TreeNode(values[i]!.Value);
+            }
         }
 
         // Assign children bottom-up so children references are already constructed
         for (var i = n - 1; i >= 0; i--) {
-            if (nodes[i] == null) continue;
+            if (nodes[i] == null) {
+                continue;
+            }
+
             var leftIndex = 2 * i + 1;
             var rightIndex = 2 * i + 2;
             var left = leftIndex < n ? nodes[leftIndex] : null;

@@ -28,7 +28,9 @@ public abstract class LevelOrder {
     ///     - Space complexity: O(n), due to the queue and the output list storing node values.
     /// </remarks>
     public static IList<IList<int>> RunLevelOrder(TreeNode? root) {
-        if (root == null) return new List<IList<int>>();
+        if (root == null) {
+            return new List<IList<int>>();
+        }
 
         var l = new List<IList<int>>();
         var q = new Queue<TreeNode>();
@@ -40,8 +42,13 @@ public abstract class LevelOrder {
             for (var i = 0; i < levelSize; i++) {
                 var node = q.Dequeue();
                 level.Add(node.val);
-                if (node.left != null) q.Enqueue(node.left);
-                if (node.right != null) q.Enqueue(node.right);
+                if (node.left != null) {
+                    q.Enqueue(node.left);
+                }
+
+                if (node.right != null) {
+                    q.Enqueue(node.right);
+                }
             }
 
             l.Add(level);

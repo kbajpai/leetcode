@@ -3,7 +3,7 @@ using Xunit;
 
 namespace LeetcodeTests;
 
-public class FundCircleNumTests {
+public class FindCircleNumTests {
     [Fact]
     public void FindCircleNum_FourCitiesAllSeparate_ReturnsFour() {
         // Arrange
@@ -15,7 +15,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(4, result);
@@ -32,7 +32,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(2, result);
@@ -46,7 +46,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(1, result);
@@ -62,7 +62,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(1, result);
@@ -78,7 +78,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(2, result);
@@ -93,7 +93,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(1, result);
@@ -108,7 +108,7 @@ public class FundCircleNumTests {
         };
 
         // Act
-        var result = FundCircleNum.FindCircleNum(isConnected);
+        var result = FindCircleNum.RunFindCircleNum(isConnected);
 
         // Assert
         Assert.Equal(2, result);

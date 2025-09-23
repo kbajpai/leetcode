@@ -4,13 +4,15 @@ public abstract class TwoPointers {
     public static bool IsPalindrome(string s) {
         var n = s.Length;
 
-        if (n <= 1)
+        if (n <= 1) {
             return true;
+        }
 
         int l = 0, r = n - 1;
         while (l < r) {
-            if (s[l++] != s[r--])
+            if (s[l++] != s[r--]) {
                 return false;
+            }
         }
 
         return true;
@@ -28,7 +30,9 @@ public abstract class TwoPointers {
     public static int[] TwoSum(int[] nums, int target) {
         var n = nums.Length;
 
-        if (n <= 1) return [-1, -1];
+        if (n <= 1) {
+            return [-1, -1];
+        }
 
         var dc = new Dictionary<int, int>(n);
         for (var i = 0; i < n; i++) {
