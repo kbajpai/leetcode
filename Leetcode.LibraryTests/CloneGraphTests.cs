@@ -4,93 +4,7 @@ using Xunit;
 namespace LeetcodeTests;
 
 public class CloneGraphTests {
-    // Create a concrete implementation for testing
-    private class TestableCloneGraph : CloneGraph {
-        // Concrete implementation for testing
-    }
-
     private readonly TestableCloneGraph _cloneGraph = new();
-
-    [Fact]
-    public void RunCloneGraph_ReturnsNull_WhenInputIsNull() {
-        // Act
-        var result = _cloneGraph.RunCloneGraph(null);
-
-        // Assert
-        Assert.Null(result);
-    }
-
-    [Fact]
-    public void RunCloneGraph_ClonesSingleNode_WhenGraphHasOneNode() {
-        // Arrange
-        var node = new Node(1);
-
-        // Act
-        var clonedNode = _cloneGraph.RunCloneGraph(node);
-
-        // Assert
-        Assert.NotNull(clonedNode);
-        Assert.Equal(1, clonedNode.Val);
-        Assert.Empty(clonedNode.Neighbors);
-        Assert.NotSame(node, clonedNode); // Different object references
-    }
-
-    [Fact]
-    public void RunCloneGraph_ClonesConnectedNodes_WhenGraphHasTwoConnectedNodes() {
-        // Arrange - Create graph: 1 <-> 2
-        var node1 = new Node(1);
-        var node2 = new Node(2);
-        node1.Neighbors.Add(node2);
-        node2.Neighbors.Add(node1);
-
-        // Act
-        var clonedNode1 = _cloneGraph.RunCloneGraph(node1);
-
-        // Assert
-        Assert.NotNull(clonedNode1);
-        Assert.Equal(1, clonedNode1.Val);
-        Assert.Single(clonedNode1.Neighbors);
-        
-        var clonedNode2 = clonedNode1.Neighbors[0];
-        Assert.Equal(2, clonedNode2.Val);
-        Assert.Single(clonedNode2.Neighbors);
-        Assert.Same(clonedNode1, clonedNode2.Neighbors[0]); // Properly connected back
-
-        // Verify original and cloned are different objects
-        Assert.NotSame(node1, clonedNode1);
-        Assert.NotSame(node2, clonedNode2);
-    }
-
-    [Fact]
-    public void RunCloneGraph_ClonesLinearGraph_WhenGraphIsChain() {
-        // Arrange - Create chain: 1 -> 2 -> 3
-        var node1 = new Node(1);
-        var node2 = new Node(2);
-        var node3 = new Node(3);
-        node1.Neighbors.Add(node2);
-        node2.Neighbors.Add(node3);
-
-        // Act
-        var clonedNode1 = _cloneGraph.RunCloneGraph(node1);
-
-        // Assert
-        Assert.NotNull(clonedNode1);
-        Assert.Equal(1, clonedNode1.Val);
-        Assert.Single(clonedNode1.Neighbors);
-
-        var clonedNode2 = clonedNode1.Neighbors[0];
-        Assert.Equal(2, clonedNode2.Val);
-        Assert.Single(clonedNode2.Neighbors);
-
-        var clonedNode3 = clonedNode2.Neighbors[0];
-        Assert.Equal(3, clonedNode3.Val);
-        Assert.Empty(clonedNode3.Neighbors);
-
-        // Verify all are different objects
-        Assert.NotSame(node1, clonedNode1);
-        Assert.NotSame(node2, clonedNode2);
-        Assert.NotSame(node3, clonedNode3);
-    }
 
     [Fact]
     public void RunCloneGraph_ClonesComplexGraph_WhenGraphHasMultipleConnections() {
@@ -168,20 +82,29 @@ public class CloneGraphTests {
     }
 
     [Fact]
-    public void RunCloneGraph_HandlesSelfLoop_WhenNodePointsToItself() {
-        // Arrange - Create node that points to itself
-        var node = new Node(1);
-        node.Neighbors.Add(node);
+    public void RunCloneGraph_ClonesConnectedNodes_WhenGraphHasTwoConnectedNodes() {
+        // Arrange - Create graph: 1 <-> 2
+        var node1 = new Node(1);
+        var node2 = new Node(2);
+        node1.Neighbors.Add(node2);
+        node2.Neighbors.Add(node1);
 
         // Act
-        var clonedNode = _cloneGraph.RunCloneGraph(node);
+        var clonedNode1 = _cloneGraph.RunCloneGraph(node1);
 
         // Assert
-        Assert.NotNull(clonedNode);
-        Assert.Equal(1, clonedNode.Val);
-        Assert.Single(clonedNode.Neighbors);
-        Assert.Same(clonedNode, clonedNode.Neighbors[0]); // Points to itself
-        Assert.NotSame(node, clonedNode); // Different object from original
+        Assert.NotNull(clonedNode1);
+        Assert.Equal(1, clonedNode1.Val);
+        Assert.Single(clonedNode1.Neighbors);
+
+        var clonedNode2 = clonedNode1.Neighbors[0];
+        Assert.Equal(2, clonedNode2.Val);
+        Assert.Single(clonedNode2.Neighbors);
+        Assert.Same(clonedNode1, clonedNode2.Neighbors[0]); // Properly connected back
+
+        // Verify original and cloned are different objects
+        Assert.NotSame(node1, clonedNode1);
+        Assert.NotSame(node2, clonedNode2);
     }
 
     [Fact]
@@ -190,7 +113,7 @@ public class CloneGraphTests {
         var node1 = new Node(1);
         var node2 = new Node(1); // Same value as node1
         var node3 = new Node(2);
-        
+
         node1.Neighbors.Add(node2);
         node1.Neighbors.Add(node3);
         node2.Neighbors.Add(node1);
@@ -210,9 +133,54 @@ public class CloneGraphTests {
 
         // Verify they are all different objects from originals
         Assert.NotSame(node1, clonedNode1);
-        Assert.All(clonedNode1.Neighbors, neighbor => {
-            Assert.True(neighbor != node1 && neighbor != node2 && neighbor != node3);
-        });
+        Assert.All(clonedNode1.Neighbors,
+            neighbor => { Assert.True(neighbor != node1 && neighbor != node2 && neighbor != node3); });
+    }
+
+    [Fact]
+    public void RunCloneGraph_ClonesLinearGraph_WhenGraphIsChain() {
+        // Arrange - Create chain: 1 -> 2 -> 3
+        var node1 = new Node(1);
+        var node2 = new Node(2);
+        var node3 = new Node(3);
+        node1.Neighbors.Add(node2);
+        node2.Neighbors.Add(node3);
+
+        // Act
+        var clonedNode1 = _cloneGraph.RunCloneGraph(node1);
+
+        // Assert
+        Assert.NotNull(clonedNode1);
+        Assert.Equal(1, clonedNode1.Val);
+        Assert.Single(clonedNode1.Neighbors);
+
+        var clonedNode2 = clonedNode1.Neighbors[0];
+        Assert.Equal(2, clonedNode2.Val);
+        Assert.Single(clonedNode2.Neighbors);
+
+        var clonedNode3 = clonedNode2.Neighbors[0];
+        Assert.Equal(3, clonedNode3.Val);
+        Assert.Empty(clonedNode3.Neighbors);
+
+        // Verify all are different objects
+        Assert.NotSame(node1, clonedNode1);
+        Assert.NotSame(node2, clonedNode2);
+        Assert.NotSame(node3, clonedNode3);
+    }
+
+    [Fact]
+    public void RunCloneGraph_ClonesSingleNode_WhenGraphHasOneNode() {
+        // Arrange
+        var node = new Node(1);
+
+        // Act
+        var clonedNode = _cloneGraph.RunCloneGraph(node);
+
+        // Assert
+        Assert.NotNull(clonedNode);
+        Assert.Equal(1, clonedNode.Val);
+        Assert.Empty(clonedNode.Neighbors);
+        Assert.NotSame(node, clonedNode); // Different object references
     }
 
     [Fact]
@@ -236,6 +204,23 @@ public class CloneGraphTests {
     }
 
     [Fact]
+    public void RunCloneGraph_HandlesSelfLoop_WhenNodePointsToItself() {
+        // Arrange - Create node that points to itself
+        var node = new Node(1);
+        node.Neighbors.Add(node);
+
+        // Act
+        var clonedNode = _cloneGraph.RunCloneGraph(node);
+
+        // Assert
+        Assert.NotNull(clonedNode);
+        Assert.Equal(1, clonedNode.Val);
+        Assert.Single(clonedNode.Neighbors);
+        Assert.Same(clonedNode, clonedNode.Neighbors[0]); // Points to itself
+        Assert.NotSame(node, clonedNode); // Different object from original
+    }
+
+    [Fact]
     public void RunCloneGraph_PreservesGraphStructure_WhenGraphIsComplete() {
         // Arrange - Create a complete graph with 3 nodes (each connected to every other)
         var node1 = new Node(1);
@@ -254,7 +239,7 @@ public class CloneGraphTests {
 
         // Assert
         Assert.NotNull(clonedNode1);
-        
+
         // Collect all cloned nodes
         var allClonedNodes = new HashSet<Node>();
         var queue = new Queue<Node>();
@@ -280,5 +265,19 @@ public class CloneGraphTests {
         // Verify values are 1, 2, 3
         var values = allClonedNodes.Select(n => n.Val).OrderBy(v => v).ToArray();
         Assert.Equal([1, 2, 3], values);
+    }
+
+    [Fact]
+    public void RunCloneGraph_ReturnsNull_WhenInputIsNull() {
+        // Act
+        var result = _cloneGraph.RunCloneGraph(null);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    // Create a concrete implementation for testing
+    private class TestableCloneGraph : CloneGraph {
+        // Concrete implementation for testing
     }
 }
