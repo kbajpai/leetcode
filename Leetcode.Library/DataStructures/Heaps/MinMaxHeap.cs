@@ -9,23 +9,23 @@ namespace Leetcode.DataStructures.Heaps {
 
             var queue = new Queue<TreeNode?>();
             queue.Enqueue(root);
+            var foundNull = false;
 
             while (queue.Count > 0) {
                 var node = queue.Dequeue();
 
                 if (node == null) {
-                    // Once we hit a null, all remaining nodes in queue must be null
-                    while (queue.Count > 0) {
-                        if (queue.Dequeue() != null) {
-                            return false;
-                        }
+                    foundNull = true;
+                }
+                else {
+                    // If we've seen a null before and now see a non-null node, it's not complete
+                    if (foundNull) {
+                        return false;
                     }
 
-                    break;
+                    queue.Enqueue(node.left);
+                    queue.Enqueue(node.right);
                 }
-
-                queue.Enqueue(node.left);
-                queue.Enqueue(node.right);
             }
 
             return true;
@@ -38,16 +38,17 @@ namespace Leetcode.DataStructures.Heaps {
             }
 
             // Check max heap property: parent >= children
-            if (root.left != null && root.left.val > root.val) {
+            // Combined checks: validate left child exists and satisfies heap property
+            if (root.left != null && (root.left.val > root.val || !IsMaxHeap(root.left))) {
                 return false;
             }
 
-            if (root.right != null && root.right.val > root.val) {
+            // Combined checks: validate right child exists and satisfies heap property
+            if (root.right != null && (root.right.val > root.val || !IsMaxHeap(root.right))) {
                 return false;
             }
 
-            // Recursively validate subtrees
-            return IsMaxHeap(root.left) && IsMaxHeap(root.right);
+            return true;
         }
     }
 }
