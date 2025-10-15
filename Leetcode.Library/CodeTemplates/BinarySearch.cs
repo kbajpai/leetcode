@@ -26,7 +26,7 @@ public abstract class BinarySearch {
 
         while (l <= r) {
             // Avoids overflow, slightly faster than division
-            var mid = (l + r) >>> 1;
+            var mid = l + ((r - l) >> 1);
             var midVal = nums[mid];
 
             if (target == midVal) {
