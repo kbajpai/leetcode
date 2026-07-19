@@ -60,16 +60,16 @@ public abstract class OverlappingIntervals {
 
         Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
 
-        var idx = 0; // Points to the last merged interval
+        var last = 0; // Points to the last merged interval
         for (var i = 1; i < n; i++) {
-            if (intervals[idx][1] < intervals[i][0]) {
-                idx++;
-                intervals[idx][0] = intervals[i][0];
-                intervals[idx][1] = intervals[i][1];
+            if (intervals[last][1] < intervals[i][0]) {
+                last++;
+                intervals[last][0] = intervals[i][0];
+                intervals[last][1] = intervals[i][1];
             }
             else {
                 // Merge intervals
-                intervals[idx][1] = Math.Max(intervals[idx][1], intervals[i][1]);
+                intervals[last][1] = Math.Max(intervals[last][1], intervals[i][1]);
             }
         }
     }
